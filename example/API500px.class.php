@@ -19,6 +19,7 @@ class API500px {
       */
       public static function getRequestToken() {
 	     $oauth = new OAuth(CONSUMER_KEY, CONSUMER_SECRET);
+	     $oauth->setRequestEngine(OAUTH_REQENGINE_CURL);
 	     $reqToken = $oauth->getRequestToken(REQUEST_TOKEN_URL, CALLBACK);
 	     $oauth->setToken($reqToken['oauth_token'], $reqToken['oauth_token_secret']);
 	     return $reqToken;
@@ -43,6 +44,7 @@ class API500px {
       */
       public static function getAccessToken($token, $secret, $verifier) {
 	     $oauth = new OAuth(CONSUMER_KEY, CONSUMER_SECRET);
+	     $oauth->setRequestEngine(OAUTH_REQENGINE_CURL);
 	     $oauth->setToken($token, $secret);
 	     $params['consumer_key'] = CONSUMER_KEY;
 	     $params['oauth_token'] = $token;
@@ -63,6 +65,7 @@ class API500px {
       */
       public function __construct($accessToken, $accessTokenSecret) {
       	     $this->oauth = new OAuth(CONSUMER_KEY, CONSUMER_SECRET);
+	     $this->oauth->setRequestEngine(OAUTH_REQENGINE_CURL);
 	     $this->accessToken = $accessToken;
 	     $this->accessTokenSecret = $accessTokenSecret;
 	     $this->oauth->setToken($this->accessToken, $this->accessTokenSecret);
